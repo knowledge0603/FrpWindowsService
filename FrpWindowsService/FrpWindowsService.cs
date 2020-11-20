@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace WindowsService2
+namespace FrpWindowsService
 {
     public partial class Service1 : ServiceBase
     {
@@ -14,7 +14,6 @@ namespace WindowsService2
         Process frp_process = null;
         protected override void OnStart(string[] args)
         {
-
             bool systemType = Environment.Is64BitOperatingSystem;
             if (systemType)//64bit
             {
@@ -24,7 +23,6 @@ namespace WindowsService2
             {
                 System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory + "baseDir\\frp32bit");
             }
-            
             wLog("Service Start");
             startFrp();
         }

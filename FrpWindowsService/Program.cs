@@ -4,7 +4,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 
-namespace WindowsService2
+namespace FrpWindowsService
 {
     static class Program
     {

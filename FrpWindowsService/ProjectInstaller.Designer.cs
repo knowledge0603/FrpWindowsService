@@ -1,4 +1,4 @@
-﻿namespace WindowsService2
+﻿namespace FrpWindowsService
 {
     partial class ProjectInstaller
     {
