@@ -1,0 +1,8 @@
+D:\work\20201115\WindowsService2\bin\Debug\WindowsService2.exe
+D:\work\20201115\WindowsService2\bin\Debug\WindowsService2.pdb
+D:\work\20201115\WindowsService2\obj\Debug\WindowsService2.csprojAssemblyReference.cache
+D:\work\20201115\WindowsService2\obj\Debug\WindowsService2.ProjectInstaller.resources
+D:\work\20201115\WindowsService2\obj\Debug\WindowsService2.csproj.GenerateResource.cache
+D:\work\20201115\WindowsService2\obj\Debug\WindowsService2.csproj.CoreCompileInputs.cache
+D:\work\20201115\WindowsService2\obj\Debug\WindowsService2.exe
+D:\work\20201115\WindowsService2\obj\Debug\WindowsService2.pdb
