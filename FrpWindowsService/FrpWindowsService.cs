@@ -20,10 +20,11 @@ namespace FrpWindowsService
         #endregion
 
         #region service onStart
-        protected override void OnStart(string[] args)
-        //public  void OnStart( )
+       // protected override void OnStart(string[] args)
+        public  void OnStart( )
         {
             Process proc = new Process();
+            proc.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory ;
             proc.StartInfo.CreateNoWindow = true;
             proc.StartInfo.FileName = "cmd.exe";
             proc.StartInfo.UseShellExecute = false;
@@ -31,7 +32,9 @@ namespace FrpWindowsService
             proc.StartInfo.RedirectStandardInput = true;
             proc.StartInfo.RedirectStandardOutput = true;
             proc.Start();
-            proc.StandardInput.WriteLine("frp.bat ");
+           // proc.StandardInput.WriteLine( "cd " + AppDomain.CurrentDomain.BaseDirectory);
+            WriteLog("cd " + AppDomain.CurrentDomain.BaseDirectory, true);
+            proc.StandardInput.WriteLine(" frp.bat ");
             proc.StandardInput.WriteLine("exit");
             while (!proc.StandardOutput.EndOfStream)
             {
@@ -53,10 +56,12 @@ namespace FrpWindowsService
         #region start frp service
         private void startFrp(Object sender = null, EventArgs e = null)
         {
-          
+            WriteLog("startFrp method start ", true);
+
             frpProcess = new Process();
-            frpProcess.StartInfo.FileName = "frpc.exe ";
-            frpProcess.StartInfo.Arguments = " -c  frpc.ini";
+            frpProcess.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            frpProcess.StartInfo.FileName = "frpc.exe";
+            frpProcess.StartInfo.Arguments = "-c frpc.ini";
             frpProcess.StartInfo.CreateNoWindow = true;
             frpProcess.StartInfo.UseShellExecute = false;
             // Guardian to restart
@@ -70,6 +75,7 @@ namespace FrpWindowsService
             frpProcess.Start();
             frpProcess.BeginOutputReadLine();
             frpProcess.BeginErrorReadLine();
+            WriteLog("startFrp method end ", true);
         }
         #endregion
 
