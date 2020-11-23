@@ -23,29 +23,21 @@ namespace FrpWindowsService
         protected override void OnStart(string[] args)
         //public  void OnStart( )
         {
-            bool systemType = Environment.Is64BitOperatingSystem;
-            if (systemType)//64bit
+            Process proc = new Process();
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.FileName = "cmd.exe";
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardError = true;
+            proc.StartInfo.RedirectStandardInput = true;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start();
+            proc.StandardInput.WriteLine("frp.bat ");
+            proc.StandardInput.WriteLine("exit");
+            while (!proc.StandardOutput.EndOfStream)
             {
-                System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory + "baseDir\\frp");
+                string line = proc.StandardOutput.ReadLine();
+                WriteLog(line, true);
             }
-            else//32bit
-            {
-                System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory + "baseDir\\frp32bit");
-            }
-            WriteLog("call frp.bat start");
-            getFrpServiceProcess = new Process();
-            getFrpServiceProcess.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "baseDir\\frp\\frp.bat ";
-            getFrpServiceProcess.StartInfo.CreateNoWindow = true;
-            getFrpServiceProcess.StartInfo.UseShellExecute = false;
-            // The process output
-            getFrpServiceProcess.StartInfo.RedirectStandardOutput = true;
-            getFrpServiceProcess.StartInfo.RedirectStandardError = true;
-            getFrpServiceProcess.OutputDataReceived += new DataReceivedEventHandler(MyProcOutputHandler);
-            getFrpServiceProcess.ErrorDataReceived += new DataReceivedEventHandler(MyProcOutputHandler);
-            getFrpServiceProcess.Start();
-            getFrpServiceProcess.BeginOutputReadLine();
-            getFrpServiceProcess.BeginErrorReadLine();
-
             startFrp();
         }
         #endregion
@@ -63,8 +55,8 @@ namespace FrpWindowsService
         {
           
             frpProcess = new Process();
-            frpProcess.StartInfo.FileName = "frpc.exe";
-            frpProcess.StartInfo.Arguments = " -c frpc.ini";
+            frpProcess.StartInfo.FileName = "frpc.exe ";
+            frpProcess.StartInfo.Arguments = " -c  frpc.ini";
             frpProcess.StartInfo.CreateNoWindow = true;
             frpProcess.StartInfo.UseShellExecute = false;
             // Guardian to restart
