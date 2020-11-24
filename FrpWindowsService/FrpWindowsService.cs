@@ -20,8 +20,8 @@ namespace FrpWindowsService
         #endregion
 
         #region service onStart
-       // protected override void OnStart(string[] args)
-        public  void OnStart( )
+        protected override void OnStart(string[] args)
+        //public  void OnStart( )
         {
             Process proc = new Process();
             proc.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory ;
@@ -61,7 +61,7 @@ namespace FrpWindowsService
             frpProcess = new Process();
             frpProcess.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
             frpProcess.StartInfo.FileName = "frpc.exe";
-            frpProcess.StartInfo.Arguments = "-c frpc.ini";
+            frpProcess.StartInfo.Arguments = " -c " + AppDomain.CurrentDomain.BaseDirectory+"frpc.ini";
             frpProcess.StartInfo.CreateNoWindow = true;
             frpProcess.StartInfo.UseShellExecute = false;
             // Guardian to restart
